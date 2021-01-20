@@ -3,6 +3,7 @@
 #include<iostream>
 #include<ctime>
 #include<cstdlib>
+#include<cmath>
 
 using namespace std;
 using namespace sf;
@@ -118,8 +119,14 @@ public:
 		text.setPosition(botao.getPosition().x-w/2,botao.getPosition().y-h/1.2);
 		botao.setTexture(&textura);
 		botao.setPosition(posicao);
+		botao.setRadius(raio);
+		botao.setOrigin(raio,raio);
 		window.draw(botao);
 		window.draw(text);
+	}
+	void ajustarTamanho(){
+		FloatRect r=text.getGlobalBounds();
+		raio=r.width/2 + r.width/10;
 	}
 	float getRadius(){
 		return raio;
@@ -197,6 +204,13 @@ public:
 		text.setPosition(r.getPosition().x-w/2,r.getPosition().y-h/1.2);
 		window.draw(r);
 		window.draw(text);
+	}
+	void ajustarTamanho(){
+		FloatRect fr=text.getGlobalBounds();
+		fr.width+=fr.width/7.5;
+		fr.height+=fr.height/3;
+		tamanho = Vector2f(fr.width,fr.height);
+		rect = FloatRect(fr);
 	}
 	bool foiClicado(RenderWindow& window){
 		if(Mouse::isButtonPressed(Mouse::Left)){
